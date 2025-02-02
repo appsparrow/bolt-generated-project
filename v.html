@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Score Visualization</title>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .winner-overlay {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+<script>
+    
+    // In v.html
+try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedData = urlParams.get('data');
+    if (encodedData) {
+        // URL decode first
+        const urlDecoded = decodeURIComponent(encodedData);
+        // Then Base64 decode
+        const gameName = atob(urlDecoded);
+        console.log('Game Name:', gameName);
+        // Use the gameName as needed
+    }
+} catch (error) {
+    console.error('Error decoding game name:', error);
+}
+
+    
+    
+</script>
+
+
+
+
+
+    <script type="text/babel">
+        function App() {
+            const [gameData, setGameData] = React.useState(null);
+            const [currentRound, setCurrentRound] = React.useState(0);
+            const [isPlaying, setIsPlaying] = React.useState(false);
+            const [error, setError] = React.useState(null);
+            const [isLoading, setIsLoading] = React.useState(true);
+            const [showWinner, setShowWinner] = React.useState(false);
+            const [winner, setWinner] = React.useState(null);
+            const [winningPlayer, setWinningPlayer] = React.useState(null);
+
+            // Get URL parameters
+            const params = new URLSearchParams(window.location.search);
+            const gameName = params.get('data');
+
+            // Fetch game data
+            React.useEffect(() => {
+                if (!gameName) {
+                    setError('No game name provided. Use ?data=<gamename> in the URL.');
+                    setIsLoading(false);
+                    return;
+                }
+
+                const dataUrl = `data/games/${gameName}.json`;
+
+                fetch(dataUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Game not found');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        setGameData(data);
+                        setIsLoading(false);
+                    })
+                    .catch(err => {
+                        setError('Failed to load game data: ' + err.message);
+                        setIsLoading(false);
+                    });
+            }, [gameName]);
+
+            // Function to determine winner
+           const determineWinner = () => {
+    if (!gameData) return null;
+    
+    const finalScores = cumulativeScores[gameData.rounds.length - 1];
+    const validPlayers = gameData.players.filter(player => finalScores[player] < gameData.game_score);
+    
+    if (validPlayers.length === 0) return null;
+    
+    const winner = validPlayers.reduce((a, b) => 
+        finalScores[a] < finalScores[b] ? a : b
+    );
+    setWinningPlayer(winner); // Set the winning player
+    return winner;
+};
+
+            // Animation control
+            React.useEffect(() => {
+    let timer;
+    if (isPlaying && gameData && currentRound < gameData.rounds.length - 1) {
+        timer = setTimeout(() => {
+            setCurrentRound(prev => prev + 1);
+        }, 500);
+    } else if (currentRound >= (gameData?.rounds.length - 1)) {
+        setIsPlaying(false);
+        const winningPlayer = determineWinner();
+        setWinner(winningPlayer);
+        setShowWinner(true);
+        
+        // Trigger confetti
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#FFD700', '#FFA500', '#FF4500']
+        });
+
+        // Reset after 5 seconds
+        setTimeout(() => {
+            setShowWinner(false);
+            setCurrentRound(0);
+            setWinningPlayer(null); // Reset the winning player state
+        }, 5000);
+    }
+    return () => clearTimeout(timer);
+}, [currentRound, isPlaying, gameData]);
+
+            if (isLoading) return <div className="p-4">Loading game data...</div>;
+            if (error) return <div className="p-4 text-red-500">{error}</div>;
+            if (!gameData) return null;
+
+            const { game_score: GAME_SCORE, drop_score: DROP_SCORE, players } = gameData;
+            const NO_DROP_ZONE = GAME_SCORE - DROP_SCORE;
+
+            // Calculate cumulative scores
+            const cumulativeScores = gameData.rounds.reduce((acc, round, idx) => {
+                if (idx === 0) return [round];
+                const previousScores = acc[idx - 1];
+                const newScores = {};
+                players.forEach(player => {
+                    newScores[player] = (previousScores[player] || 0) + (round[player] || 0);
+                });
+                return [...acc, newScores];
+            }, []);
+
+            const getBarColor = (score, player) => {
+    if (player === winningPlayer) return '#22c55e'; // Green color for winner
+    if (score >= GAME_SCORE) return '#ff0000';
+    if (score >= NO_DROP_ZONE) return '#ff9800';
+    return '#9c27b0';
+};
+
+          const togglePlay = () => {
+    if (currentRound >= gameData.rounds.length - 1) {
+        setCurrentRound(0);
+        setWinningPlayer(null); // Reset winning player when manually resetting
+    }
+    setIsPlaying(!isPlaying);
+};
+
+            return (
+                <div className="p-4 bg-gray-900 text-white min-h-screen">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="mb-4 flex justify-between items-center">
+                            <div>
+                                <h1 className="text-2xl font-bold mb-2">{gameData.name}</h1>
+                                <p>Game Score: {GAME_SCORE} | Drop Score: {DROP_SCORE}</p>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={togglePlay}
+                                    className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded"
+                                >
+                                    {isPlaying ? "Pause" : "Play"}
+                                </button>
+                                <span>Round: {currentRound + 1}/{gameData.rounds.length}</span>
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            {players.map((player) => {
+    const score = cumulativeScores[currentRound]?.[player] || 0;
+    const width = `${Math.min((score / GAME_SCORE) * 100, 100)}%`;
+    const barColor = getBarColor(score, player); // Pass player as second argument
+    const status = score >= GAME_SCORE ? '(OUT)' :
+        score >= NO_DROP_ZONE ? '(No Drop)' : '';
+
+    
+    return (
+        <div key={player} className="flex items-center space-x-2">
+            <div className="w-32 text-right">{player}</div>
+            <div className="flex-1 bg-gray-700 h-8 rounded overflow-hidden">
+                <div
+                    className="h-full transition-all duration-1000 flex items-center px-2 " // Added justify-between
+                    style={{ width, backgroundColor: barColor }}
+                >
+                    <span className="text-white font-bold">{score}</span>
+                    {status && <span className="text-white font-bold ml-2">{status}</span>}
+                </div>
+            </div>
+        </div>
+    );
+})}
+                        </div>
+
+                        <div className="mt-4 flex justify-center gap-4">
+                            <div className="flex items-center">
+                                <div className="w-4 h-4 rounded bg-purple-600 mr-2"></div>
+                                <span>Safe Zone (0-{NO_DROP_ZONE - 1})</span>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="w-4 h-4 rounded bg-orange-500 mr-2"></div>
+                                <span>Drop Zone ({NO_DROP_ZONE}-{GAME_SCORE - 1})</span>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="w-4 h-4 rounded bg-red-600 mr-2"></div>
+                                <span>Out ({GAME_SCORE}+)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {showWinner && winner && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 winner-overlay">
+                            <div className="text-center bg-purple-600 p-8 rounded-lg shadow-lg transform scale-110">
+                                <h2 className="text-4xl font-bold mb-4">Winner!</h2>
+                                <p className="text-3xl text-yellow-300">{winner}</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>

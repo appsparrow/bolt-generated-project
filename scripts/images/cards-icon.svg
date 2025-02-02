@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none">
+  <!-- First card -->
+  <rect x="2" y="4" width="16" height="20" rx="2" ry="2" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  <!-- Second card (slightly offset) -->
+  <rect x="4" y="2" width="16" height="20" rx="2" ry="2" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  <!-- Third card (slightly offset) -->
+  <rect x="6" y="0" width="16" height="20" rx="2" ry="2" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  <!-- Card symbols (hearts, spades, etc.) -->
+  <text x="8" y="12" font-size="6" fill="red" font-family="Arial">♥</text>
+  <text x="10" y="16" font-size="6" fill="black" font-family="Arial">♠</text>
+  <text x="12" y="20" font-size="6" fill="red" font-family="Arial">♦</text>
+</svg>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Score Reader</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .scoreboard {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .player-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .player-row:last-child {
+            border-bottom: none;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .speaking {
+            color: #4CAF50;
+            font-weight: bold;
+            display: none;
+            margin-left: 10px;
+        }
+        .muted {
+            background-color: #f44336;
+        }
+        .rounds-container {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Game Score Reader</h1>
+    
+    <div class="controls">
+        <button onclick="readCurrentScores()">Read Current Scores</button>
+        <button onclick="readAllRounds()">Read All Rounds</button>
+        <button onclick="toggleMute()" id="muteButton">Mute</button>
+        <span id="speakingIndicator" class="speaking">🔊 Speaking...</span>
+    </div>
+
+    <div class="scoreboard" id="currentScores">
+        <h2>Current Scores</h2>
+        <!-- Scores will be populated here -->
+    </div>
+
+    <div class="rounds-container" id="roundsContainer">
+        <h2>Rounds</h2>
+        <!-- Rounds will be populated here -->
+    </div>
+
+    <script>
+        let gameData = null;
+        let isMuted = false;
+        let isPlaying = false;
+        let speechQueue = [];
+
+        // Load the JSON data
+        async function loadGameData() {
+            try {
+                const response = await fetch('data/games/SemyaPayesam.json');
+                gameData = await response.json();
+                displayScores();
+                displayRounds();
+            } catch (error) {
+                console.error('Error loading game data:', error);
+                // For demo purposes, load sample data
+                gameData = {
+                    "players": ["Sridevi", "Soumya", "Kiran", "Madhavi", "Kaali"],
+                    "cumulative_scores": {
+                        "Sridevi": 134, "Soumya": 107, "Kiran": 132,
+                        "Madhavi": 156, "Kaali": 164
+                    },
+                    "rounds": [
+                        {"Sridevi": 16, "Soumya": 32, "Kiran": 20, "Madhavi": 20, "Kaali": 10},
+                        {"Sridevi": 20, "Soumya": 15, "Kiran": 20, "Madhavi": 22, "Kaali": 20}
+                    ]
+                };
+                displayScores();
+                displayRounds();
+            }
+        }
+
+        function displayScores() {
+            const scoresContainer = document.getElementById('currentScores');
+            const scores = gameData.cumulative_scores;
+            
+            let scoresHTML = '<div class="scores-grid">';
+            Object.entries(scores).forEach(([player, score]) => {
+                scoresHTML += `
+                    <div class="player-row">
+                        <span>${player}</span>
+                        <span>${score}</span>
+                    </div>`;
+            });
+            scoresHTML += '</div>';
+            scoresContainer.innerHTML = '<h2>Current Scores</h2>' + scoresHTML;
+        }
+
+        function displayRounds() {
+            const roundsContainer = document.getElementById('roundsContainer');
+            let roundsHTML = '';
+            
+            gameData.rounds.forEach((round, index) => {
+                roundsHTML += `<h3>Round ${index + 1}</h3>`;
+                roundsHTML += '<div class="scores-grid">';
+                Object.entries(round).forEach(([player, score]) => {
+                    roundsHTML += `
+                        <div class="player-row">
+                            <span>${player}</span>
+                            <span>${score}</span>
+                        </div>`;
+                });
+                roundsHTML += '</div>';
+            });
+            
+            roundsContainer.innerHTML = '<h2>Rounds</h2>' + roundsHTML;
+        }
+
+        function speak(text) {
+            if (isMuted) return;
+
+            if (isPlaying) {
+                speechQueue.push(text);
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            // Show speaking indicator
+            isPlaying = true;
+            document.getElementById('speakingIndicator').style.display = 'inline';
+
+            utterance.onend = () => {
+                isPlaying = false;
+                document.getElementById('speakingIndicator').style.display = 'none';
+                
+                if (speechQueue.length > 0) {
+                    const nextText = speechQueue.shift();
+                    setTimeout(() => speak(nextText), 250);
+                }
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function readCurrentScores() {
+            const scores = gameData.cumulative_scores;
+            let text = "Current scores are: ";
+            Object.entries(scores).forEach(([player, score]) => {
+                text += `${player} has ${score} points. `;
+            });
+            speak(text);
+        }
+
+        function readAllRounds() {
+            gameData.rounds.forEach((round, index) => {
+                let roundText = `Round ${index + 1}: `;
+                Object.entries(round).forEach(([player, score]) => {
+                    roundText += `${player} scored ${score}. `;
+                });
+                speak(roundText);
+            });
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const muteButton = document.getElementById('muteButton');
+            muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+            muteButton.classList.toggle('muted');
+            
+            if (isMuted) {
+                window.speechSynthesis.cancel();
+                speechQueue = [];
+                document.getElementById('speakingIndicator').style.display = 'none';
+            }
+        }
+
+        // Load data when page loads
+        window.addEventListener('load', loadGameData);
+    </script>
+</body>
+</html>

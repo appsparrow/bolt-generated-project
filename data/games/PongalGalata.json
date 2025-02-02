@@ -1,0 +1,33 @@
+{
+  "name": "Pongal Galata",
+  "drop_score": 20,
+  "middle_drop": 40,
+  "full_count": 80,
+  "game_score": 213,
+  "winner_score": 0,
+  "players": ["Sridevi", "Viji", "Vinnu", "Mohan", "Madhavi", "Kannu", "Indu", "Aunty", "Anitha", "Srini", "Priyanka"],
+  "rounds": [
+    {"Sridevi": 62, "Viji": 2, "Vinnu": 20, "Mohan": 40, "Madhavi": 20, "Kannu": 20, "Indu": 20, "Aunty": 34, "Anitha": 20, "Srini": 72, "Priyanka": 0},
+    {"Sridevi": 20, "Viji": 14, "Vinnu": 13, "Mohan": 11, "Madhavi": 0, "Kannu": 20, "Indu": 70, "Aunty": 20, "Anitha": 31, "Srini": 20, "Priyanka": 79},
+    {"Sridevi": 6, "Viji": 40, "Vinnu": 20, "Mohan": 20, "Madhavi": 0, "Kannu": 20, "Indu": 20, "Aunty": 20, "Anitha": 20, "Srini": 20, "Priyanka": 36},
+    {"Sridevi": 20, "Viji": 24, "Vinnu": 14, "Mohan": 20, "Madhavi": 62, "Kannu": 20, "Indu": 3, "Aunty": 19, "Anitha": 20, "Srini": 20, "Priyanka": 0},
+    {"Sridevi": 0, "Viji": 21, "Vinnu": 20, "Mohan": 20, "Madhavi": 5, "Kannu": 24, "Indu": 20, "Aunty": 31, "Anitha": 20, "Srini": 27, "Priyanka": 20},
+    {"Sridevi": 20, "Viji": 0, "Vinnu": 12, "Mohan": 20, "Madhavi": 20, "Kannu": 20, "Indu": 56, "Aunty": 64, "Anitha": 20, "Srini": 3, "Priyanka": 20},
+    {"Sridevi": 20, "Viji": 41, "Vinnu": 12, "Mohan": 20, "Madhavi": 0, "Kannu": 20, "Indu": 13, "Aunty": 36, "Anitha": 20, "Srini": 23, "Priyanka": 20},
+    {"Sridevi": 4, "Viji": 40, "Vinnu": 20, "Mohan": 20, "Madhavi": 20, "Kannu": 20, "Indu": 2, "Aunty": 0, "Anitha": 20, "Srini": 0, "Priyanka": 80},
+    {"Sridevi": 0, "Viji": 4, "Vinnu": 20, "Mohan": 20, "Madhavi": 4, "Kannu": 20, "Indu": 19, "Aunty": 0, "Anitha": 20, "Srini": 20, "Priyanka": 0},
+    {"Sridevi": 0, "Viji": 0, "Vinnu": 20, "Mohan": 0, "Madhavi": 20, "Kannu": 0, "Indu": 0, "Aunty": 0, "Anitha": 0, "Srini": 0, "Priyanka": 0},
+    {"Sridevi": 0, "Viji": 0, "Vinnu": 20, "Mohan": 0, "Madhavi": 2, "Kannu": 0, "Indu": 0, "Aunty": 0, "Anitha": 0, "Srini": 0, "Priyanka": 0},
+    {"Sridevi": 4, "Viji": 40, "Vinnu": 20, "Mohan": 20, "Madhavi": 20, "Kannu": 20, "Indu": 2, "Anitha": 0, "Srini": 80},
+    {"Sridevi": 0, "Viji": 0, "Vinnu": 0, "Mohan": 0, "Madhavi": 0, "Kannu": 30, "Indu": 0, "Aunty": 0, "Anitha": 0, "Srini": 0, "Priyanka": 0},
+    {"Sridevi": 0, "Viji": 0, "Vinnu": 0, "Mohan": 0, "Madhavi": 0, "Kannu": 0, "Indu": 0, "Aunty": 0, "Anitha": 80, "Srini": 0, "Priyanka": 0}
+  ],
+  "wins": {
+    "Sridevi": 0, "Viji": 3, "Vinnu": 3, "Mohan": 0, "Madhavi": 1, "Kannu": 1, "Indu": 0, "Aunty": 2, "Anitha": 1, "Srini": 1, "Priyanka": 2
+  },
+  "cumulative_scores": {
+    "Sridevi": 156, "Viji": 226, "Vinnu": 191, "Mohan": 191, "Madhavi": 173, "Kannu": 214, "Indu": 205, "Aunty": 224, "Anitha": 251, "Srini": 265, "Priyanka": 255
+  },
+  "passcode": "0990",
+  "current_round_rejoin_score": 206
+}

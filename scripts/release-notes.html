@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Score Keeper App - Release Notes</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                line-height: 1.6;
+                background-color: #1a1a1a;
+                color: #fff;
+            }
+            .release-header {
+                background-color: #2d2d2d;
+                padding: 20px;
+                border-radius: 10px;
+                margin-bottom: 30px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            }
+            .release-header h1 {
+                color: #ba68c8;
+                margin: 0;
+                border-bottom: 1px solid #ba68c8;
+                padding-bottom: 10px;
+            }
+            .release-date {
+                color: #aaa;
+                font-style: italic;
+            }
+            .feature-group {
+                background-color: #2d2d2d;
+                margin-bottom: 20px;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            }
+            .feature-title {
+                color: #ba68c8;
+                border-bottom: 1px solid #ba68c8;
+                padding-bottom: 10px;
+                margin-top: 0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .feature-title i {
+                color: #ba68c8;
+            }
+            .feature-list {
+                list-style-type: none;
+                padding-left: 20px;
+                margin: 0;
+            }
+            .feature-list li {
+                margin-bottom: 12px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .feature-list li i {
+                color: #3498db;
+                width: 20px;
+                text-align: center;
+            }
+            .sub-feature-list {
+                list-style-type: none;
+                padding-left: 30px;
+                margin: 10px 0;
+            }
+            .sub-feature-list li {
+                margin-bottom: 8px;
+                color: #aaa;
+            }
+            .sub-feature-list li i {
+                color: #95a5a6;
+            }
+            .close-button-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="release-header">
+            <h1><i class="fas fa-dice"></i> Score Keeper App v1.12</h1>
+            <p class="release-date">Release Date - February 2024</p>
+        </div>
+
+        <div class="feature-group">
+            <h2 class="feature-title"><i class="fas fa-home"></i> Home Page Features</h2>
+            <ul class="feature-list">
+                <li> View all existing games in a list format</li>
+                <li> Create new games with the "New Game" button</li>
+                <li> Delete existing games with 4-digit master passcode protection</li>
+                <li> Access game disclaimers and information</li>
+                <li> View comprehensive rummy rules</li>
+            </ul>
+        </div>
+
+        <div class="feature-group">
+            <h2 class="feature-title"><i class="fas fa-cog"></i> Game Setup Features</h2>
+            <ul class="feature-list">
+                <li> Secure 4-digit passcode protection for each game</li>
+                <li> Customizable game settings:
+                    <ul class="sub-feature-list">
+                        <li> Drop Score (Default: 20)</li>
+                        <li> Middle Drop (Default: 40)</li>
+                        <li> Full Count (Default: 80)</li>
+                        <li> Game Score/Out Score (Default: 251)</li>
+                        <li> Winner Score (Default: 0)</li>
+                    </ul>
+                </li>
+                <li> Player management with sorting capabilities</li>
+                <li> Acknowledgment system with backend tracking</li>
+            </ul>
+        </div>
+
+        <div class="feature-group">
+            <h2 class="feature-title"><i class="fas fa-gamepad"></i> Rounds Features</h2>
+            <ul class="feature-list">
+                <li> Secure round access with master passcode</li>
+                <li> Real-time score tracking and updates</li>
+                <li> Visual score tracking with color-coded bar charts:
+                    <ul class="sub-feature-list">
+                        <li> Yellow indicator for no-drop zone proximity</li>
+                        <li> Red indicator for out status</li>
+                    </ul>
+                </li>
+                <li> Player rejoin system with automatic score adjustment</li>
+                <li> Round history and status tracking</li>
+            </ul>
+        </div>
+
+        <div class="feature-group">
+            <h2 class="feature-title"><i class="fas fa-shield-alt"></i> Security Features</h2>
+            <ul class="feature-list">
+                <li> 4-digit master passcode protection</li>
+                <li> Game deletion confirmation system</li>
+                <li> IP address and timestamp tracking</li>
+                <li> Non-resettable game pins for enhanced security</li>
+            </ul>
+        </div>
+
+        <div class="feature-group">
+            <h2 class="feature-title"><i class="fas fa-chart-pie"></i> Analytics Features</h2>
+            <ul class="feature-list">
+                <li> Visual performance tracking</li>
+                <li> Score progression monitoring</li>
+                <li> Player status indicators</li>
+                <li> Round history tracking</li>
+            </ul>
+        </div>
+
+        <div class="feature-group">
+            <h2 class="feature-title"><i class="fas fa-exclamation-circle"></i> Known Limitations</h2>
+            <ul class="feature-list">
+                <li> Only one winner allowed per game</li>
+                <li> Game name cannot be blank</li>
+                <li> Game PIN cannot be reset once set</li>
+            </ul>
+        </div>
+        <div class="close-button-container">
+            <button onclick="window.history.back()" class="btn">Close</button>
+        </div>
+    </body>
+    </html>

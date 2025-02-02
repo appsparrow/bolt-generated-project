@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Game Rules & Info</title>
+    <style>
+        :root {
+            --primary-color: #9c27b0;
+            --primary-light: #ba68c8;
+            --primary-dark: #7b1fa2;
+            --secondary-color: #673ab7;
+            --dark-bg: #1a1a1a;
+            --dark-surface: #2d2d2d;
+            --text-primary: #fff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--primary-light);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 20px;
+        }
+
+        .section {
+            background: var(--dark-surface);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .feature-list li, .rules-list li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .faq-question {
+            color: var(--primary-light);
+            font-weight: bold;
+        }
+
+        .example {
+            background: rgba(156, 39, 176, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .video-container video {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        @media (min-width: 768px) {
+            .video-container video {
+                max-width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <h2>Game Features</h2>
+    <div class="section">
+        <ul class="feature-list">
+            <li>Multiple game management with custom scoring rules</li>
+            <li>Real-time score tracking and winner calculation</li>
+            <li>Player performance visualization with charts</li>
+            <li>Flexible player management - add/remove during gameplay</li>
+            <li>Game resumption capability with score history</li>
+            <li>Secure access with 4-digit passcode protection</li>
+        </ul>
+    </div>
+
+    <h2>Game Rules</h2>
+    <div class="section">
+        <ul class="rules-list">
+            <li>Each round must have exactly one winner (score of 0)</li>
+            <li>Players can score: Drop (20), Middle Drop (40), Full Count (80), or Win (0)</li>
+            <li>Players reaching Game Score (default 251) are considered "out"</li>
+            <li>Out players can rejoin with highest active player's score + 1</li>
+            <li>Game continues until only one player remains below Game Score</li>
+        </ul>
+    </div>
+
+
+    <!-- Add this section after the Game Rules section -->
+
+<h2>Rummy Card Game Rules</h2>
+<div class="section">
+    <h3>Basic Rummy Rules</h3>
+    <ul class="rules-list">
+        <li>Players: 2-6 players</li>
+        <li>Cards: Standard 52-card deck (Jokers optional)</li>
+        <li>Goal: Form valid combinations and be the first to discard all cards</li>
+    </ul>
+
+    <h3>Valid Combinations</h3>
+    <ul class="rules-list">
+        <li>Sets: Three or four cards of the same rank (e.g., 8♠ 8♣ 8♥)</li>
+        <li>Runs: Three or more consecutive cards of the same suit (e.g., 5♥ 6♥ 7♥)</li>
+        <li>Jokers can substitute for any card in sets or runs</li>
+    </ul>
+
+    <h3>Game Flow</h3>
+    <ul class="rules-list">
+        <li>Each player gets 13 cards</li>
+        <li>On your turn:
+            <ol>
+                <li>Draw one card (from deck or discard pile)</li>
+                <li>Form or modify combinations</li>
+                <li>Discard one card</li>
+            </ol>
+        </li>
+        <li>First player to arrange all cards in valid combinations and discard wins</li>
+    </ul>
+
+    <div class="example">
+        <h3>Scoring in Rummy</h3>
+        <p>When using this app for Rummy scoring:</p>
+        <ul>
+            <li>Winner gets 0 points (automatic in app)</li>
+            <li>Other players' points based on unmatched cards:
+                <ul>
+                    <li>Face cards (K, Q, J) = 40 points (Middle Drop)</li>
+                    <li>Ace = 80 points (Full Count)</li>
+                    <li>Number cards = 20 points (Drop Score)</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<h2>Using the App for Rummy</h2>
+<div class="section">
+    <h3>Setup Your Rummy Game</h3>
+    <ol class="rules-list">
+        <li>Click "New Game" and name it (e.g., "Friday Rummy")</li>
+        <li>Configure scoring:
+            <ul>
+                <li>Drop Score: 20 (for number cards)</li>
+                <li>Middle Drop: 40 (for face cards)</li>
+                <li>Full Count: 80 (for Aces)</li>
+                <li>Game Score: 251 (standard end threshold)</li>
+            </ul>
+        </li>
+        <li>Add all players (2-6 players)</li>
+        <li>Set a 4-digit passcode to secure your game</li>
+    </ol>
+
+    <h3>During Gameplay</h3>
+    <ul class="rules-list">
+        <li>After each round:
+            <ul>
+                <li>Enter 0 for the winning player</li>
+                <li>For other players, enter:
+                    <ul>
+                        <li>20 points for remaining number cards</li>
+                        <li>40 points for remaining face cards</li>
+                        <li>80 points for remaining Aces</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Click "Next Round" to proceed</li>
+        <li>Use "Stats" to track performance over multiple rounds</li>
+    </ul>
+
+    <div class="example">
+        <h3>Example Round in App</h3>
+        <p>Players: Alice, Bob, Charlie, David</p>
+        <p>Round End Scenario:</p>
+        <ul>
+            <li>Alice wins (enters 0)</li>
+            <li>Bob has K♠, Q♥ (enters 80)</li>
+            <li>Charlie has 5♣, 6♦ (enters 40)</li>
+            <li>David has A♠ (enters 80)</li>
+        </ul>
+        <p>App automatically updates scores and shows Alice as round winner</p>
+    </div>
+
+    <h3>Special Features for Rummy</h3>
+    <ul class="rules-list">
+        <li>Use "Quick Score" buttons for common card combinations</li>
+        <li>Track winning combinations in notes section</li>
+        <li>View performance trends in visualization page</li>
+        <li>Set reminders for regular game nights</li>
+    </ul>
+</div>
+
+    <h2>Scoring System</h2>
+    <div class="section">
+        <h3>Default Scores:</h3>
+        <ul class="rules-list">
+            <li>Drop Score: 20 points</li>
+            <li>Middle Drop: 40 points</li>
+            <li>Full Count: 80 points</li>
+            <li>Winner: 0 points</li>
+            <li>Game Out Score: 251 points</li>
+        </ul>
+    </div>
+
+    <h2>Example Scenario</h2>
+    <div class="section">
+        <div class="example">
+            <h3>Game: "Friday Night Cards"</h3>
+            <p>Players: Alex (220), Beth (180), Charlie (245), David (150)</p>
+            <p>Round Scenario:</p>
+            <ul>
+                <li>David wins with 0 points</li>
+                <li>Alex scores 40 (Middle Drop) → 260 (Out)</li>
+                <li>Beth scores 20 (Drop) → 200</li>
+                <li>Charlie scores 80 (Full Count) → 325 (Out)</li>
+            </ul>
+            <p>Next Round: Alex and Charlie can rejoin at 201 (Beth's score + 1)</p>
+        </div>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="section">
+        <div class="faq-item">
+            <p class="faq-question">Q: How do I start a new game?</p>
+            <p>A: Click "New Game", set up scoring rules, add players, and create a 4-digit passcode for security.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">Q: What happens when a player goes "Out"?</p>
+            <p>A: Players can use the "Rejoin" button to come back with a score one point higher than the current highest active player.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">Q: Can I modify scores after entering them?</p>
+            <p>A: No, scores are final once "Next Round" is clicked to maintain game integrity.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">Q: How do I view game statistics?</p>
+            <p>A: Click the "📊 Stats" button on any game card to see detailed visualizations and performance metrics.</p>
+        </div>
+    </div>
+</body>
+</html>
